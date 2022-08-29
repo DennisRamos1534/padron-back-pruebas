@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Padron</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"> <!-- Material Icon -->
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div class="container">
+        <aside>
+            <div class="top">
+                <div class="logo">
+                    <img src="img/logo.png" alt="Logo de Padron">
+                    <h2>PA<span class="danger">DRON</span></h2>
+                </div>
+                <div class="close" id="close-btn">
+                    <span class="material-icons-sharp">close</span>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <a href="/" class="active">
+                    <span class="material-icons-sharp">grid_view</span>
+                    <h3>Dashboard</h3>
+                </a>
+                <a href="personas.html">
+                    <span class="material-icons-sharp">person</span>
+                    <h3>Personas</h3>
+                </a>
+                <a href="mapa.html">
+                    <span class="material-icons-sharp">map</span>
+                    <h3>Mapa</h3>
+                </a>
+                <!-- <a href="#">
+                    <span class="material-icons-sharp">logout</span>
+                    <h3>Cerrar Sesion</h3>
+                </a> -->
+            </div>
+        </aside>
+
+        <!------------------------ FIN DEL ASIDE -------------------------->
+
+        <main>
+            <h1>Dashboard</h1>
+            <div class="date">
+                <input type="date">
+            </div>
+
+            <div class="insights">
+                <!---------------------- INICIO DE LOS SALES ------------------------>
+                <div class="sales">
+                    <!-- <span class="material-icons-sharp">analytics</span>  -->
+                    <div class="profile-photo">
+                        <img src="img/logo-mosi.png" alt="Logo movimiento ciudadano">
+                    </div>     
+                    <div class="middle">
+                        <div class="left">
+                            <h3>MOCI</h3>
+                            <h1 id="moci"></h1>
+                        </div>
+                        <div class="progress">
+                            <svg>
+                                <!-- <circle cx="38" cy="38" r="36"></circle> -->
+                                <circle cx="38" cy="38" r="37"/>
+                                <circle id="barraProgresoMoci" cx="38" cy="38" r="37"/>
+                            </svg>
+                            <div class="number">
+                                <p class="margen-arriba" id="mocipor"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <small class="text-muted">Actualizado recientemente</small>
+                </div>
+                <!---------------------- FINAL DE LOS SALES ------------------------>
+                <!---------------------- INICIO DE LOS EXPENSES ------------------------>
+                <div class="expenses">
+                    <!-- <span class="material-icons-sharp">bar_chart</span> -->
+                    <div class="profile-photo">
+                        <img src="img/logo-morena2.png" alt="Logo morena padron">
+                    </div>  
+                    <div class="middle">
+                        <div class="left">
+                            <h3>MORENA</h3>
+                            <h1 id="morena"></h1>
+                        </div>
+                        <div class="progress">
+                            <svg>
+                                <!-- <circle cx="38" cy="38" r="36"></circle> -->
+                                <circle cx="38" cy="38" r="37"/>
+                                <circle id="barraProgresoMorena" cx="38" cy="38" r="37"/>
+                            </svg>
+                            <div class="number">
+                                <p class="margen-arriba" id="morenapor"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <small class="text-muted">Actualizado recientemente</small>
+                </div>
+                <!---------------------- FINAL DE LOS EXPENSES ------------------------>
+                <!---------------------- INICIO DE LOS INCOMES ------------------------>
+                <div class="incomes">
+                    <!-- <span class="material-icons-sharp">stacked_line_chart</span>       -->
+                    <div class="profile-photo">
+                        <img src="img/logo-pri.png" alt="Logo pri padron">
+                    </div>  
+                    <div class="middle">
+                        <div class="left">
+                            <h3>PRI</h3>
+                            <h1 id="pri"></h1>
+                        </div>
+                        <div class="progress">
+                            <svg>
+                                <!-- <circle cx="38" cy="38" r="36"></circle> -->
+                                <circle cx="38" cy="38" r="37"/>
+                                <circle id="barraProgresoPri" cx="38" cy="38" r="37"/>
+                            </svg>
+                            <div class="number">
+                                <p class="margen-arriba" id="pripor"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <small class="text-muted">Actualizado recientemente</small>
+                </div>
+                <!---------------------- FINAL DE LOS INCOMES ------------------------>
+            </div>
+            <!---------------------- FINAL DE LOS INSIGHTS ------------------------>
+            <div class="recent-order">
+                <h2>Votos por colonia</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Colonia</th>
+                            <th>Moci</th>
+                            <th>Morena</th>
+                            <th>Pri</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Centro</td>
+                            <td id="centro-moci"></td>
+                            <td id="centro-morena"></td>
+                            <td id="centro-pri"></td>
+                            <td class="primary"><span class="material-icons-sharp">where_to_vote</span></td>
+                        </tr>
+                        <tr>
+                            <td>Guadalupe</td>
+                            <td id="guadalupe-moci"></td>
+                            <td id="guadalupe-morena"></td>
+                            <td id="guadalupe-pri"></td>
+                            <td class="primary"><span class="material-icons-sharp">where_to_vote</span></td>
+                        </tr>
+                        <tr>
+                            <td>Tizimin</td>
+                            <td id="tizimin-moci"></td>
+                            <td id="tizimin-morena"></td>
+                            <td id="tizimin-pri"></td>
+                            <td class="primary"><span class="material-icons-sharp">where_to_vote</span></td>
+                        </tr>
+                        <tr>
+                            <td>Hornos</td>
+                            <td id="hornos-moci"></td>
+                            <td id="hornos-morena"></td>
+                            <td id="hornos-pri"></td>
+                            <td class="primary"><span class="material-icons-sharp">where_to_vote</span></td>
+                        </tr>
+                        <!-- <tr>
+                            <td>Foldable Mini Drone</td>
+                            <td>85631</td>
+                            <td>Due</td>
+                            <td class="warning">Pendiente</td>
+                            <td class="primary">Detalles</td>
+                        </tr> -->
+                    </tbody>
+                </table>
+                <a href="#">Mostrar todo</a>
+            </div>
+        </main>
+        <!---------------------- FINAL DEL MAIN ------------------------>
+        <div class="right">
+            <div class="top">
+                <button id="menu-btn"><span class="material-icons-sharp">menu</span></button>
+                <div class="theme-toggler">
+                    <span class="material-icons-sharp active">light_mode</span>
+                    <span class="material-icons-sharp">dark_mode</span>
+                </div>
+                <div class="profile">
+                    <div class="info">
+                        <p>Hola, <b id="nombreAdmin"></b></p>
+                        <small class="text-muted">Admin</small>
+                    </div>
+                    <div class="profile-photo">
+                        <img src="img/perfil.png" alt="Perfil de Padron">
+                    </div>
+                </div>
+            </div>
+            <!---------------------- FINAL DEL TOP ------------------------>
+            <div class="recent-updates">
+                <h2>Actualizados Recientemente</h2>
+                <div class="updates">
+                    <div class="update">
+                        <div class="profile-photo">
+                            <img src="img/perfil.png" alt="perfil padron">
+                        </div>
+                        <div class="message">
+                            <p><b>Mike Tyson</b> recibio su order en la noche</p>
+                            <small class="text-muted">Hace 2 minutos</small>
+                        </div>
+                    </div>
+                    <div class="update">
+                        <div class="profile-photo">
+                            <img src="img/perfil.png" alt="perfil padron">
+                        </div>
+                        <div class="message">
+                            <p><b>Daniel Sanchez</b> recibio su order en la noche</p>
+                            <small class="text-muted">Hace 2 minutos</small>
+                        </div>
+                    </div>
+                    <div class="update">
+                        <div class="profile-photo">
+                            <img src="img/perfil.png" alt="perfil padron">
+                        </div>
+                        <div class="message">
+                            <p><b>Antonio Aguilar</b> recibio su order en la noche</p>
+                            <small class="text-muted">Hace 2 minutos</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!---------------------- FINAL DE RECIENTE UPDATE ------------------------>
+            <div class="sales-analytics">
+                <h2>Analytics</h2>
+                <div class="item online">
+                    <div class="icon">
+                        <span class="material-icons-sharp active">location_city</span>
+                    </div>
+                    <div class="right">
+                        <div class="info">
+                            <h3>SEYBAPLAYA</h3>
+                            <small class="text-muted">Ultimas 24 horas</small>
+                        </div>
+                        <h5 id="por-seybaplaya" class="success"></h5>
+                        <h3 id="seybaplaya"></h3>
+                    </div>
+                </div>
+                <div class="item offline">
+                    <div class="icon">
+                        <span class="material-icons-sharp active">map</span>
+                    </div>
+                    <div class="right">
+                        <div class="info">
+                            <h3>XKEULIL</h3>
+                            <small class="text-muted">Ultimas 24 horas</small>
+                        </div>
+                        <h5 id="por-xkeulil" class="success"></h5>
+                        <h3 id="xkeulil"></h3>
+                    </div>
+                </div>
+                <div class="item customers">
+                    <div class="icon">
+                        <span class="material-icons-sharp active">my_location</span>
+                    </div>
+                    <div class="right">
+                        <div class="info">
+                            <h3>VILLAMADERO</h3>
+                            <small class="text-muted">Ultimas 24 horas</small>
+                        </div>
+                        <h5 id="por-villamadero" class="success"></h5>
+                        <h3 id="villamadero"></h3>
+                    </div>
+                </div>
+
+                <div class="item add-product">
+                    <div>
+                        <span class="material-icons-sharp">add</span>
+                        <h3>Añade Producto</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="contendor-loading">
+        <div class="contenedor-interno">
+            <img id="img-activa" src="img/loading-text.gif" alt="loading gif">
+        </div>
+    </div>
+
+    <!-- <footer class="mostrar-footer">
+        <p>Todos los derechos reservados &copy;</p>
+    </footer> -->
+
+    <!----------------------- FOOTER ------------------------->
+
+    <!-- <script src="socket.io/socket.io.js"></script> -->
+    <script src="./js/validar-token.js"></script>
+    <script src="./js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Padron</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin=""/>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"> <!-- Material Icon -->
+    <link rel="stylesheet" href="css/mapa.css">
+</head>
+<body>
+    <div class="container-persona">
+        <aside>
+            <div class="top">
+                <div class="logo">
+                    <img src="img/logo.png" alt="Logo de Padron">
+                    <h2>PA<span class="danger">DRON</span></h2>
+                </div>
+                <div class="close" id="close-btn">
+                    <span class="material-icons-sharp">close</span>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <a href="/">
+                    <span class="material-icons-sharp">grid_view</span>
+                    <h3>Dashboard</h3>
+                </a>
+                <a href="personas.html">
+                    <span class="material-icons-sharp">person</span>
+                    <h3>Personas</h3>
+                </a>
+                <a href="mapa.html" class="active">
+                    <span class="material-icons-sharp">map</span>
+                    <h3>Mapa</h3>
+                </a>
+            </div>
+        </aside>
+
+        <!------------------------ FIN DEL ASIDE -------------------------->
+
+        <main>
+            <div class="flex-header">
+                <div class="hijo1">
+                    <h1>Mapas</h1>
+                    <!-- <div class="date">
+                        <input type="date">
+                    </div>  -->
+                </div>
+
+                <div class="right">
+                    <div class="top">
+                        <button id="menu-btn"><span class="material-icons-sharp">menu</span></button>
+                        <div class="theme-toggler">
+                            <span class="material-icons-sharp active">light_mode</span>
+                            <span class="material-icons-sharp">dark_mode</span>
+                        </div>
+                        <div class="profile">
+                            <div class="info">
+                                <p>Hola, <b id="nombreAdmin"></b></p>
+                                <small class="text-muted">Admin</small>
+                            </div>
+                            <div class="profile-photo">
+                                <img src="img/perfil.png" alt="Perfil de Padron">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AQUI VA EL CODIGO PARA EL MAPA -->
+            <select class="select-seccion" name="select-seccion" id="select-seccion">
+                <option value="-1">Filtre por seccion:</option>
+                <option value="0321">0321</option>
+                <option value="0322">0322</option>	
+                <option value="0323">0323</option>
+                <option value="0324">0324</option>			
+            </select>
+
+            <button class="btn-filtro" id="borrar-filtro">Eliminar Filtro</button>
+
+            <div id="map"></div>
+        </main>
+        <!---------------------- FINAL DEL MAIN ------------------------>
+    </div>
+
+    <div class="contendor-loading">
+        <div class="contenedor-interno">
+            <img id="img-activa" src="img/loading-text.gif" alt="loading gif">
+        </div>
+    </div>
+    <footer class="mostrar-footer">
+        <p>Todos los derechos reservados &copy;</p>
+    </footer>
+
+    <!-- <script src="socket.io/socket.io.js"></script> -->
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
+
+    <script src="./js/validar-token.js"></script>
+    <script src="./js/mapa.js"></script>
+</body>
+</html>
