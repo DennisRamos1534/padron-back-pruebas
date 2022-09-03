@@ -1,7 +1,8 @@
 
 document.addEventListener('DOMContentLoaded', async () => {
 
-    const pathUrl = 'http://31.220.31.215:3000';
+    const pathUrl = 'http://31.220.31.215:3000'; // Produccion
+    // const pathUrl = 'http://localhost:3000'; // desarrollo
     const urlMapa = `${pathUrl}/api/dash/personas`;
     const urlFiltroSeccion = `${pathUrl}/api/dash/filtroseccion`;
 

@@ -6,37 +6,102 @@ const Formulario = require('../models/form');
 const estadisticas = async (req, res = response) => {
 
     try {
-        
-        const total = await Formulario.countDocuments(); // para que realice la suma de los numeros
-        const moci = await Formulario.countDocuments({intencionvoto: "Movimiento Ciudadano"});
+        // por partido
+        let total = 0;
+        let moci = 0;
+        let morena = 0;
+        let pri = 0;
+
+        // colonias
+        let centroMoci = 0;
+        let centroMorena = 0;
+        let centroPri = 0;
+        let guadalupeMoci = 0;
+        let guadalupeMorena = 0;
+        let guadalupePri = 0;
+        let tiziminMoci = 0;
+        let tiziminMorena = 0;
+        let tiziminPri = 0;
+        let hornosMoci = 0;
+        let hornosMorena = 0;
+        let hornosPri = 0;
+
+        // Por ciudad
+        let seybaplaya = 0;
+        let xkeulil = 0;
+        let villamadero = 0;
+
+        const encuestas = await Formulario.find();
+        encuestas.forEach(encuesta => {
+            
+            // Por Partido
+            if(encuesta['intencionvoto'] == 'Movimiento Ciudadano') {
+                moci++;
+            }
+            if(encuesta['intencionvoto'] == 'Morena') {
+                morena++;
+            }
+            if(encuesta['intencionvoto'] == 'Pri') {
+                pri++;
+            }
+
+            // Por Colonias
+            if(encuesta['intencionvoto'] == 'Movimiento Ciudadano' && encuesta['colonia'] == 'Centro') {
+                centroMoci++;
+            }
+            if(encuesta['intencionvoto'] == 'Morena' && encuesta['colonia'] == 'Centro') {
+                centroMorena++;
+            }
+            if(encuesta['intencionvoto'] == 'Pri' && encuesta['colonia'] == 'Centro') {
+                centroPri++;
+            }
+            if(encuesta['intencionvoto'] == 'Movimiento Ciudadano' && encuesta['colonia'] == 'Guadalupe') {
+                guadalupeMoci++;
+            }
+            if(encuesta['intencionvoto'] == 'Morena' && encuesta['colonia'] == 'Guadalupe') {
+                guadalupeMorena++;
+            }
+            if(encuesta['intencionvoto'] == 'Pri' && encuesta['colonia'] == 'Guadalupe') {
+                guadalupePri++;
+            }
+            if(encuesta['intencionvoto'] == 'Movimiento Ciudadano' && encuesta['colonia'] == 'Tizimin') {
+                tiziminMoci++;
+            }
+            if(encuesta['intencionvoto'] == 'Morena' && encuesta['colonia'] == 'Tizimin') {
+                tiziminMorena++;
+            }
+            if(encuesta['intencionvoto'] == 'Pri' && encuesta['colonia'] == 'Tizimin') {
+                tiziminPri++;
+            }
+            if(encuesta['intencionvoto'] == 'Movimiento Ciudadano' && encuesta['colonia'] == 'Hornos') {
+                hornosMoci++;
+            }
+            if(encuesta['intencionvoto'] == 'Morena' && encuesta['colonia'] == 'Hornos') {
+                hornosMorena++;
+            }
+            if(encuesta['intencionvoto'] == 'Pri' && encuesta['colonia'] == 'Hornos') {
+                hornosPri++;
+            }
+
+            // Por ciudad
+            if(encuesta['ciudad'] == 'Seybaplaya') {
+                seybaplaya++;
+            }
+            if(encuesta['ciudad'] == 'Xkeulil') {
+                xkeulil++;
+            }
+            if(encuesta['ciudad'] == 'Villamadero') {
+                villamadero++;
+            }
+
+            total++;
+        });
+
         const porcentajeMoci = Math.round((moci * 100) / total);
-        const morena = await Formulario.countDocuments({intencionvoto: "Morena"});
         const porcentajeMorena = Math.round((morena * 100) / total);
-        const pri = await Formulario.countDocuments({intencionvoto: "Pri"});
         const porcentajePri = Math.round((pri * 100) / total);
-
-        // TABLA POR COLONIA
-        const centroMoci = await Formulario.countDocuments({colonia: "Centro", intencionvoto: "Movimiento Ciudadano"});
-        const centroMorena = await Formulario.countDocuments({colonia: "Centro", intencionvoto: "Morena"});
-        const centroPri = await Formulario.countDocuments({colonia: "Centro", intencionvoto: "Pri"});
         
-        const guadalupeMoci = await Formulario.countDocuments({colonia: "Guadalupe", intencionvoto: "Movimiento Ciudadano"});
-        const guadalupeMorena = await Formulario.countDocuments({colonia: "Guadalupe", intencionvoto: "Morena"});
-        const guadalupePri = await Formulario.countDocuments({colonia: "Guadalupe", intencionvoto: "Pri"});
-        
-        const tiziminMoci = await Formulario.countDocuments({colonia: "Tizimin", intencionvoto: "Movimiento Ciudadano"});
-        const tiziminMorena = await Formulario.countDocuments({colonia: "Tizimin", intencionvoto: "Morena"});
-        const tiziminPri = await Formulario.countDocuments({colonia: "Tizimin", intencionvoto: "Pri"});
-        
-        const hornosMoci = await Formulario.countDocuments({colonia: "Hornos", intencionvoto: "Movimiento Ciudadano"});
-        const hornosMorena = await Formulario.countDocuments({colonia: "Hornos", intencionvoto: "Morena"});
-        const hornosPri = await Formulario.countDocuments({colonia: "Hornos", intencionvoto: "Pri"});
-        
-        const seybaplaya = await Formulario.countDocuments({ciudad: "Seybaplaya"});
-        const xkeulil = await Formulario.countDocuments({ciudad: "Xkeulil"});
-        const villamadero = await Formulario.countDocuments({ciudad: "Villamadero"});
-
-        res.json({ 
+        res.json({
             ok: true,
             total,
             moci,
@@ -60,7 +125,7 @@ const estadisticas = async (req, res = response) => {
             seybaplaya,
             xkeulil,
             villamadero
-        });
+        });         
     } catch (error) {
         console.log(error);
         res.status(500).json({

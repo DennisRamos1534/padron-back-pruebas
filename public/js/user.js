@@ -44,6 +44,7 @@ const consultarApi = async (usuario, password) => {
     }
    
     const url = 'http://31.220.31.215:3000/api/login/admin';
+    // const url = 'http://localhost:3000/api/login/admin';
 
     try {
         const resp = await fetch(url, {
