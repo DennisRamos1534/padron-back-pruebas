@@ -4,7 +4,7 @@
 
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { crearForm, allForm } = require('../controllers/form');
+const { crearForm, allForm, borrarUsuario } = require('../controllers/form');
 const { validarCampos} = require('../middlewares/validar-campos');
 // const { validarJWT } = require('../middlewares/validar-jwt');
 
@@ -25,6 +25,11 @@ router.post('/new', [
 ], crearForm);
 
 router.get('/getAll', allForm);
+
+router.delete('/deleteUsuario', [
+    check('nombre','El nombre es obligatorio').not().isEmpty(),
+    validarCampos
+], borrarUsuario);
 
 // router.get('/all', allUser);
 

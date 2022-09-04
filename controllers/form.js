@@ -43,7 +43,27 @@ const allForm = async (req, res = response) => {
     }
 }
 
+const borrarUsuario = async (req, res = response) => {
+
+    const {nombre} = req.body;
+    try {
+        const borrarFormulario = await Formulario.findOneAndDelete(nombre);
+
+        res.json({
+            ok: true,
+            borrarFormulario
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Hable con el administrador'
+        });
+    }
+}
+
 module.exports = {
     crearForm,
     allForm,
+    borrarUsuario
 }
