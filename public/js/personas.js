@@ -1,8 +1,8 @@
 
 document.addEventListener('DOMContentLoaded', async () => {
 
-    const pathUrl = 'http://31.220.31.215:3000';
-    // const pathUrl = 'http://localhost:3000';
+    // const pathUrl = 'http://31.220.31.215:3000';
+    const pathUrl = 'http://localhost:3000';
     const urlPersonas = `${pathUrl}/api/dash/personas`;
 
     const sideMenu = document.querySelector("aside");

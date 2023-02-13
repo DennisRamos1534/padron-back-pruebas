@@ -4,99 +4,233 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Padron</title>
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
+    <link rel="stylesheet" href="https://adminlte.io/themes/v3/plugins/fontawesome-free/css/all.min.css">
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"> Material Icon -->
+    <!-- FONTAWESOME -->
+    <link rel="stylesheet" href="plugins/fontawesome-free-6.2.1-web/css/all.css">
+    
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin=""/>
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"> <!-- Material Icon -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/docs/docs.css">
+    <link rel="stylesheet" href="plugins/adminLTE/css/adminlte.min.css">
+    <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+
+    <!-- Select2 -->
+    <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+
+    <!-- Datetimepicker -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment-with-locales.min.js"></script>
+
+    <!--  LeafLet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
+    <link rel="stylesheet" href="//unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css" type="text/css">
+    <link rel="stylesheet" href="//unpkg.com/leaflet-sidebar-v2@3.2.3/css/leaflet-sidebar.min.css" type="text/css">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+    
+    <!-- FAVICON -->
+    <link rel="icon" href="img/logo.png">
     <link rel="stylesheet" href="css/mapa.css">
 </head>
 <body>
-    <div class="container-persona">
-        <aside>
-            <div class="top">
-                <div class="logo">
-                    <img src="img/logo.png" alt="Logo de Padron">
-                    <h2>PA<span class="danger">DRON</span></h2>
-                </div>
-                <div class="close" id="close-btn">
-                    <span class="material-icons-sharp">close</span>
-                </div>
+    <main>
+        <div id="sidebar" class="leaflet-sidebar collapsed">
+            <div class="leaflet-sidebar-tabs">
+                <ul role="tablist"> <!-- top aligned tabs -->
+                    <li>
+                        <a href="#home" role="tab">
+                            <i class="fas fa-filter"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="index.html" role="tab">
+                            <i class="fas fa-home"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="personas.html" role="tab">
+                            <i class="fas fa-table"></i>
+                        </a>
+                    </li>
+                </ul>
+                <ul role="tablist"> <!-- top aligned tabs -->
+                    <li>
+                        <a href="#info" role="tab">
+                            <i class="fas fa-info"></i>
+                        </a>
+                    </li>
+                </ul>
             </div>
 
-            <div class="sidebar">
-                <a href="/">
-                    <span class="material-icons-sharp">grid_view</span>
-                    <h3>Dashboard</h3>
-                </a>
-                <a href="personas.html">
-                    <span class="material-icons-sharp">person</span>
-                    <h3>Personas</h3>
-                </a>
-                <a href="mapa.html" class="active">
-                    <span class="material-icons-sharp">map</span>
-                    <h3>Mapa</h3>
-                </a>
-            </div>
-        </aside>
+            <div class="leaflet-sidebar-content">
 
-        <!------------------------ FIN DEL ASIDE -------------------------->
-
-        <main>
-            <div class="flex-header">
-                <div class="hijo1">
-                    <h1>Mapas</h1>
-                    <!-- <div class="date">
-                        <input type="date">
-                    </div>  -->
-                </div>
-
-                <div class="right">
-                    <div class="top">
-                        <button id="menu-btn"><span class="material-icons-sharp">menu</span></button>
-                        <div class="theme-toggler">
-                            <span class="material-icons-sharp active">light_mode</span>
-                            <span class="material-icons-sharp">dark_mode</span>
-                        </div>
-                        <div class="profile">
-                            <div class="info">
-                                <p>Hola, <b id="nombreAdmin"></b></p>
-                                <small class="text-muted">Admin</small>
+                <!-- Aqui va el html del filtro en el mapa -->
+                <div class="leaflet-sidebar-pane" id="home">
+                    <h1 class="leaflet-sidebar-header letras">
+                        Ingrese los filtros para obtener resultados
+                        <span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span>
+                    </h1>
+                    </br>
+                    
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="letras-size">Fecha inicio</label>
+                                <div class="input-group">
+                                    <input type="text" value="" required class="form-control datepicker" id="fechaIni" placeholder="Ingrese una fecha de inicio" autocomplete="off">
+                                    <div id="widgetParentId"></div>
+                                    <div class="input-group-append" data-target="datepicker" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fas fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                                <div class="form-text text-muted letras-size">Seleccionar fecha</div>
                             </div>
-                            <div class="profile-photo">
-                                <img src="img/perfil.png" alt="Perfil de Padron">
+                            <div class="col-md-12">
+                                <label class="letras-size">Fecha fin</label>
+                                <div class="input-group">
+                                    <input type="text" value="" required class="form-control datepicker" id="fechaFin" placeholder="Ingrese una fecha de fin" autocomplete="off">
+                                    <div id="widgetParentId"></div>
+                                    <div class="input-group-append" data-target="datepicker" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fas fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                                <div class="form-text text-muted">Seleccionar fecha</div>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Tabla para consultar</label>
+                                <div class="input-group">
+                                    <select class="form-control select2" name="tabla" id="tabla"></select>
+                                </div>
+                                <div class="form-text text-muted">Tabla a consultar</div>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Dirección</label>
+                                <div class="input-group">
+                                    <select class="form-control select2" value="Seleccione una opción" name="direccion" id="direccion" disabled></select>
+                                </div>
+                                <div class="form-text text-muted">Seleccione una opción</div>
+                            </div>
+                            <div class="col-md-12">
+                                <label id="textDistritos">Distritos viejos</label>
+                                <div class="theme-switch-wrapper nav-link">
+                                    <label class="theme-switch distritosswitch" for="checkbox_point">
+                                        <input type="checkbox" id="checkbox_point"/>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Seleccione uno o más distritos</label>
+                                <div class="input-group">
+                                    <select class="form-control select2bs4" name="distritos[]" id="distritos" multiple="multiple" data-placeholder="Seleccionar distritos" style="width: 100%;">
+                                    </select>
+                                </div>
+                                <div class="form-text text-muted">Distritos</div>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Seleccione una o más secciones</label>
+                                <div class="input-group">
+                                    <select class="form-control select2bs4" name="secciones[]" id="secciones" multiple="multiple" data-placeholder="Seleccionar secciones" style="width: 100%;">
+                                    </select>
+                                </div>
+                                <div class="form-text text-muted">Secciones</div>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Escriba el título del evento</label>
+                                <div class="input-group">
+                                    <input class="form-control" name="titulo_evento" id="titulo_evento" disabled>
+                                </div>
+                                <div class="form-text text-muted">Ingrese un texto</div>
+                            </div>
+    
+                        </div>
+                    </div>
+    
+                    <div class="col-md-12">
+                        <div class="text-right">
+                            <button id="consultarTablas" class="btn btn-sm btn-primary">
+                                <i class="fa fa-filter" aria-hidden="true"></i> Filtrar
+                            </button>
+                            <button id="borrarFiltro" class="btn btn-sm btn-default">
+                                <i class="fa fa-eraser" aria-hidden="true"></i> Borrar filtro
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Filtros -->
+                </div>
+                
+                <!-- Aqui va el html del filtro user -->
+                <div class="leaflet-sidebar-pane" id="user">
+                    <h1 class="leaflet-sidebar-header letras">
+                        Mi cuenta
+                        <span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span>
+                    </h1>
+                    </br>
+                    Hola, <span id="nombre-persona"></span>
+                    </br>
+                    <span id="departamento-name"></span>
+                    </br>
+                </div>
+
+                <div class="leaflet-sidebar-pane" id="info">
+                    <h1 class="leaflet-sidebar-header letras">
+                        Acerca de ClickSey
+                        <span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span>
+                    </h1>
+                    <div class="modal-body">
+                        <div class="row text-center">
+                            <div class="col-md-12 centrar">
+                                <label>Desarrollado por ClickSey</label>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col-md-12 imagen-size">
+                            <image src="img/logo.png" alt="ClickSey"></image>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div> <!-- Cierre del layer de filtro -->
 
-            <!-- AQUI VA EL CODIGO PARA EL MAPA -->
-            <select class="select-seccion" name="select-seccion" id="select-seccion">
-                <option value="-1">Filtre por seccion:</option>
-                <option value="0321">0321</option>
-                <option value="0322">0322</option>	
-                <option value="0323">0323</option>
-                <option value="0324">0324</option>			
-            </select>
+        <div id="map"></div>
 
-            <button class="btn-filtro" id="borrar-filtro">Eliminar Filtro</button>
-
-            <div id="map"></div>
-        </main>
-        <!---------------------- FINAL DEL MAIN ------------------------>
-    </div>
-
-    <div class="contendor-loading">
-        <div class="contenedor-interno">
-            <img id="img-activa" src="img/loading-text.gif" alt="loading gif">
+        <div class="contendor-loading">
+            <div class="contenedor-interno">
+                <img id="img-activa" src="img/loading-text.gif" alt="loading gif">
+            </div>
         </div>
-    </div>
-    <footer class="mostrar-footer">
-        <p>Todos los derechos reservados &copy;</p>
-    </footer>
+    </main>
+        <!---------------------- FINAL DEL MAIN ------------------------>
 
-    <!-- <script src="socket.io/socket.io.js"></script> -->
-    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <script src="plugins/sparklines/sparkline.js"></script>
+
+    <!-- Select2 -->
+    <script src="plugins/select2/js/select2.full.min.js"></script>
+
+    <!-- Datetimepicker -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- Mapa OSM -->
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+    <script src="https://unpkg.com/leaflet-gesture-handling@1.2.2/dist/leaflet-gesture-handling.min.js"></script>
+    <script src="//unpkg.com/leaflet-sidebar-v2@3.2.3/js/leaflet-sidebar.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
 
     <script src="./js/validar-token.js"></script>
     <script src="./js/mapa.js"></script>

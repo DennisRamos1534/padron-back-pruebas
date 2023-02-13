@@ -1,62 +1,96 @@
 
 document.addEventListener('DOMContentLoaded', async () => {
 
-    const pathUrl = 'http://31.220.31.215:3000'; // Produccion
-    // const pathUrl = 'http://localhost:3000'; // desarrollo
+    // const pathUrl = 'http://31.220.31.215:3000'; // Produccion
+    const pathUrl = 'http://localhost:3000'; // desarrollo
     const urlMapa = `${pathUrl}/api/dash/personas`;
     const urlFiltroSeccion = `${pathUrl}/api/dash/filtroseccion`;
 
-    const sideMenu = document.querySelector("aside");
-    const menuBtn = document.querySelector("#menu-btn");
-    const closeBtn = document.querySelector("#close-btn");
-    const selectNombreAdmin = document.querySelector("#nombreAdmin");
-
-    const themeToggler = document.querySelector(".theme-toggler");
-
     const loading = document.querySelector('.contendor-loading');
-    const footer = document.querySelector('.mostrar-footer');
-    
-    const nombreAdmin = localStorage.getItem('nombre-admin');
-    selectNombreAdmin.innerHTML = nombreAdmin; // Agregamos el nombre del administrador
-
-    // mostrar aside
-    menuBtn.addEventListener('click', () => {
-        sideMenu.style.display = 'block';
-    });
-
-    // cerrar aside
-    closeBtn.addEventListener('click', () => {
-        sideMenu.style.display = 'none';
-    });
-
-    themeToggler.addEventListener('click', () => {
-        document.body.classList.toggle('dark-theme-variables');
-
-        themeToggler.querySelector('span:nth-child(1)').classList.toggle('active');
-        themeToggler.querySelector('span:nth-child(2)').classList.toggle('active');
-    }); 
+    let marker; 
 
     // ================== MAPA ================== //
 
-    footer.style.display = 'none';
     loading.style.display = 'flex'; // Mostramos el loading
 
-    let map = L.map('map').setView([19.637319, -90.685976], 15);
-    let marker;
+    let markersCluster = L.markerClusterGroup();
+    markersCluster.clearLayers(); // limpiamos todos los puntos agrupados
+
+    let map = L.map('map', {
+        zoomControl: false,
+        gestureHandling: true
+    }).setView([19.637319, -90.685976], 15);
+
+    map.createPane('labels');
+    map.getPane('labels').style.zIndex = 650;
+    map.getPane('labels').style.pointerEvents = 'none';
+
+    map.addControl(new L.Control.Zoom({
+        zoomInText: '+',
+        zoomInTitle: 'Acercar',
+        zoomOutTitle: 'Alejar',
+        zoomOutText: '-',
+        position: 'bottomright'
+    }));
+
+    var positron = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png', {
+        attribution: '©OpenStreetMap, ©CartoDB'
+    }).addTo(map);
+
+    var positronLabels = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png', {
+        attribution: '©OpenStreetMap, ©CartoDB',
+        pane: 'labels'
+    }).addTo(map);
 
     let customIcon = new L.Icon({
-        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-violet.png',
-        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-        iconSize: [25, 41],
-        iconAnchor: [12, 41],
-        popupAnchor: [1, -34],
-        shadowSize: [41, 41]
-      });
+        iconUrl: 'img/point.png',
+        iconSize: [10, 15]
+    });
+
+    // let marker;
 
     // L.tileLayer();
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+        maxZoom: 25,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
+
+    var info = L.control();
+    info.onAdd = function (map) {
+        var div = L.DomUtil.create('div', '');
+        // div.innerHTML = '<span class="info-box-icon"></span><div class="info-box-content personalizar"><div class="iconpersonal"><i class="fa-solid fa-gear iconop"></i></div><div class="poner-columnas"><span class="info-box-text">Elementos:</span><span class="info-box-number" id="qty_elements">0</span></div></div>';
+        div.innerHTML = '<div class="personalizar"><div class="iconpersonal"><i class="fa-solid fa-gear iconop"></i></div><div class="poner-columnas"><span class="info-box-text">Elementos:</span><span class="info-box-number" id="qty_elements">0</span></div></div>';
+        return div;
+    }; // <i class="fa-solid fa-gear"></i>
+    info.addTo(map);
+
+    L.Control.Watermark = L.Control.extend({
+        onAdd: function(map) {
+            var img = L.DomUtil.create('img');
+            img.src = 'img/logo.png';
+            img.style.width = '95px';
+
+            return img;
+        },
+
+        onRemove: function(map) {
+            // Nothing to do here
+        }
+    });
+
+    L.control.watermark = function(opts) {
+        return new L.Control.Watermark(opts);
+    }
+
+    L.control.watermark({ position: 'bottomleft' }).addTo(map);
+
+    $('.select2').select2({
+        width: '100%'
+    })
+    $('.select2bs4').select2({
+        theme: 'bootstrap4',
+        width: '100%'
+    });
 
     try {
         const resp = await fetch(urlMapa, { 
@@ -68,15 +102,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         const resultadoPersonas = await resp.json();
         if(resultadoPersonas['ok']) {
             loading.style.display = 'none'; // Ocultamos el loading
-            footer.style.display = 'block';
             resultadoPersonas['personas'].forEach(per => {
                 // Creamos la tabla dinamicamente con la BD
                 marker = L.marker([per['latitud'], per['longitud']], {icon: customIcon}).addTo(map);
-                marker.bindTooltip(`<b>${per['nombre']}</b><br>${per['seccion']}</b><br>${per['colonia']}</b><br>${per['intencionvoto']}`, {
-                    direction: 'top',
-                    sticky: true
-                });
-                // marker.bindPopup(`<b>${per['nombre']}</b><br>${per['seccion']}</b><br>${per['colonia']}</b><br>${per['intencionvoto']}`);
+                // marker.bindTooltip(`<div align='left'><b>Nombre: </b>${per['nombre']}<br/><b>Seccion: </b>${per['seccion']}</br><b>Colonia: </b>${per['colonia']}</br><b>Intencion de voto: </b>${per['intencionvoto']}</br></div>`, {
+                //     direction: 'top',
+                //     sticky: true
+                // });
+                marker.bindPopup(`<div align='left'><b>Nombre: </b>${per['nombre']}<br/><b>Seccion: </b>${per['seccion']}</br><b>Colonia: </b>${per['colonia']}</br><b>Intencion de voto: </b>${per['intencionvoto']}</br></div>`);
+                markersCluster.addLayer(marker);
+                map.addLayer(markersCluster);
             });
         }
     } catch (error) {
@@ -94,109 +129,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     map.on('click', onMapClick);
 
+    var sidebar = L.control.sidebar('sidebar').addTo(map);
+
     // ======================= filtro por seccion ======================= //
-
-    document.getElementById('select-seccion').addEventListener('change', async function(e){
-        
-        footer.style.display = 'none';
-        loading.style.display = 'flex'; // Mostramos el loading
-        
-        const seccionVal = document.getElementById('select-seccion').value;
-        map.remove();
-        map = L.map('map').setView([19.637319, -90.685976], 15);
-
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-        const data = {
-            "seccion": seccionVal
-        }
-
-        let customIconFiltro = new L.Icon({
-            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-violet.png',
-            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
-            popupAnchor: [1, -34],
-            shadowSize: [41, 41]
-        });
-
-        try {
-            const resp = await fetch(urlFiltroSeccion, { 
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            });
-            const resultadoFiltroSeccion = await resp.json();
-            if(resultadoFiltroSeccion['ok']) {
-                loading.style.display = 'none'; // Ocultamos el loading
-                footer.style.display = 'block';
-                resultadoFiltroSeccion['personas'].forEach(perFiltro => {
-                    
-                    let marker = L.marker([perFiltro['latitud'], perFiltro['longitud']], {icon: customIconFiltro}).addTo(map);
-                    // marker.bindPopup(`<b>${perFiltro['nombre']}</b><br>${perFiltro['seccion']}</b><br>${perFiltro['colonia']}</b><br>${perFiltro['intencionvoto']}`);
-                    marker.bindTooltip(`<b>${perFiltro['nombre']}</b><br>${perFiltro['seccion']}</b><br>${perFiltro['colonia']}</b><br>${perFiltro['intencionvoto']}`, {
-                        direction: 'top',
-                        sticky: true
-                    });
-                });
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    });
     
     
-    // ========================= ELIMINAR FILTRO ========================= //
-
-    document.querySelector('#borrar-filtro').addEventListener('click', async (e) => {
-        
-        footer.style.display = 'none';
-        loading.style.display = 'flex'; // Mostramos el loading
-        
-        map.remove();
-        map = L.map('map').setView([19.637319, -90.685976], 15);
-
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-
-        let customIconBorrar = new L.Icon({
-            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-violet.png',
-            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
-            popupAnchor: [1, -34],
-            shadowSize: [41, 41]
-        });
-
-        try {
-            const resp = await fetch(urlMapa, { 
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            });
-            const resultadoBorrarFiltro = await resp.json();
-            if(resultadoBorrarFiltro['ok']) {
-                loading.style.display = 'none'; // Ocultamos el loading
-                footer.style.display = 'block';
-                resultadoBorrarFiltro['personas'].forEach(perBorrar => {
-                    
-                    let marker = L.marker([perBorrar['latitud'], perBorrar['longitud']], {icon: customIconBorrar}).addTo(map);
-                    // marker.bindPopup(`<b>${perBorrar['nombre']}</b><br>${perBorrar['seccion']}</b><br>${perBorrar['colonia']}</b><br>${perBorrar['intencionvoto']}`);
-                    marker.bindTooltip(`<b>${perBorrar['nombre']}</b><br>${perBorrar['seccion']}</b><br>${perBorrar['colonia']}</b><br>${perBorrar['intencionvoto']}`, {
-                        direction: 'top',
-                        sticky: true
-                    });
-                });
-
-                document.getElementById('select-seccion').value = "-1";
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    });
 });
