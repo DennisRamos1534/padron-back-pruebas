@@ -102,6 +102,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         const resultadoPersonas = await resp.json();
         if(resultadoPersonas['ok']) {
             loading.style.display = 'none'; // Ocultamos el loading
+
+            $("#qty_elements").html(`${resultadoPersonas['personas'].length}`); // Agreamos el total
+
             resultadoPersonas['personas'].forEach(per => {
                 // Creamos la tabla dinamicamente con la BD
                 marker = L.marker([per['latitud'], per['longitud']], {icon: customIcon}).addTo(map);
@@ -133,5 +136,5 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // ======================= filtro por seccion ======================= //
     
-    
+
 });
