@@ -2,8 +2,8 @@
 document.addEventListener('DOMContentLoaded', async () => {
     
     // constantes 
-    // const pathUrl = 'http://31.220.31.215:3000';
-    const pathUrl = 'http://localhost:3000';
+    const pathUrl = 'http://66.175.233.101:3000';
+    // const pathUrl = 'http://localhost:3000';
     const urlLogin = `${pathUrl}/api/login/adminrenovar`;
     const urlEstadisticas = `${pathUrl}/api/dash/estadisticas`;
     const token = localStorage.getItem('x-token');

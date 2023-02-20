@@ -1,8 +1,8 @@
 
 document.addEventListener('DOMContentLoaded', async () => {
 
-    // const pathUrl = 'http://31.220.31.215:3000'; // Produccion
-    const pathUrl = 'http://localhost:3000'; // desarrollo
+    const pathUrl = 'http://66.175.233.101:3000'; // Produccion
+    // const pathUrl = 'http://localhost:3000'; // desarrollo
     const urlMapa = `${pathUrl}/api/dash/personas`;
     const urlFiltroSeccion = `${pathUrl}/api/dash/filtroseccion`;
 
@@ -105,17 +105,21 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             $("#qty_elements").html(`${resultadoPersonas['personas'].length}`); // Agreamos el total
 
-            resultadoPersonas['personas'].forEach(per => {
-                // Creamos la tabla dinamicamente con la BD
-                marker = L.marker([per['latitud'], per['longitud']], {icon: customIcon}).addTo(map);
-                // marker.bindTooltip(`<div align='left'><b>Nombre: </b>${per['nombre']}<br/><b>Seccion: </b>${per['seccion']}</br><b>Colonia: </b>${per['colonia']}</br><b>Intencion de voto: </b>${per['intencionvoto']}</br></div>`, {
-                //     direction: 'top',
-                //     sticky: true
-                // });
-                marker.bindPopup(`<div align='left'><b>Nombre: </b>${per['nombre']}<br/><b>Seccion: </b>${per['seccion']}</br><b>Colonia: </b>${per['colonia']}</br><b>Intencion de voto: </b>${per['intencionvoto']}</br></div>`);
-                markersCluster.addLayer(marker);
-                map.addLayer(markersCluster);
-            });
+            if(resultadoPersonas['personas'].length > 0) {
+                resultadoPersonas['personas'].forEach(per => {
+                    // Creamos la tabla dinamicamente con la BD
+                    marker = L.marker([per['latitud'], per['longitud']], {icon: customIcon}).addTo(map);
+                    // marker.bindTooltip(`<div align='left'><b>Nombre: </b>${per['nombre']}<br/><b>Seccion: </b>${per['seccion']}</br><b>Colonia: </b>${per['colonia']}</br><b>Intencion de voto: </b>${per['intencionvoto']}</br></div>`, {
+                    //     direction: 'top',
+                    //     sticky: true
+                    // });
+                    marker.bindPopup(`<div align='left'><b>Nombre: </b>${per['nombre']}<br/><b>Seccion: </b>${per['seccion']}</br><b>Colonia: </b>${per['colonia']}</br><b>Intencion de voto: </b>${per['intencionvoto']}</br></div>`);
+                    markersCluster.addLayer(marker);
+                    map.addLayer(markersCluster);
+                });
+            } else {
+                console.log('No hay Elementos');
+            }
         }
     } catch (error) {
         console.log(error);
