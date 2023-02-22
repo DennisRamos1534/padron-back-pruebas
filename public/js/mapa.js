@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     //     direction: 'top',
                     //     sticky: true
                     // });
-                    marker.bindPopup(`<div align='left'><b>Nombre: </b>${per['nombre']}<br/><b>Seccion: </b>${per['seccion']}</br><b>Colonia: </b>${per['colonia']}</br><b>Intencion de voto: </b>${per['intencionvoto']}</br></div>`);
+                    marker.bindPopup(`<div align='left'><b>Nombre: </b>${per['nombre']}<br/><b>Seccion: </b>${per['seccion']}</br><b>Colonia: </b>${per['colonia']}</br><b>Deporte Favorito: </b>${per['deporte']}</br></div>`);
                     markersCluster.addLayer(marker);
                     map.addLayer(markersCluster);
                 });

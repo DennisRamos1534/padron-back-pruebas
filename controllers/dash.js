@@ -8,23 +8,23 @@ const estadisticas = async (req, res = response) => {
     try {
         // por partido
         let total = 0;
-        let moci = 0;
-        let morena = 0;
-        let pri = 0;
+        let beisbol = 0;
+        let futbol = 0;
+        let basquetbol = 0;
 
         // colonias
-        let centroMoci = 0;
-        let centroMorena = 0;
-        let centroPri = 0;
-        let guadalupeMoci = 0;
-        let guadalupeMorena = 0;
-        let guadalupePri = 0;
-        let tiziminMoci = 0;
-        let tiziminMorena = 0;
-        let tiziminPri = 0;
-        let hornosMoci = 0;
-        let hornosMorena = 0;
-        let hornosPri = 0;
+        let centroBeis = 0;
+        let centroFut = 0;
+        let centroBasquet = 0;
+        let guadalupeBeis = 0;
+        let guadalupeFut = 0;
+        let guadalupeBasquet = 0;
+        let tiziminBeis = 0;
+        let tiziminFut = 0;
+        let tiziminBasquet = 0;
+        let hornosBeis = 0;
+        let hornosFut = 0;
+        let hornosBasquet = 0;
 
         // Por ciudad
         let seybaplaya = 0;
@@ -35,52 +35,52 @@ const estadisticas = async (req, res = response) => {
         encuestas.forEach(encuesta => {
             
             // Por Partido
-            if(encuesta['intencionvoto'] == 'Movimiento Ciudadano') {
-                moci++;
+            if(encuesta['deporte'] == 'Beisbol') {
+                beisbol++;
             }
-            if(encuesta['intencionvoto'] == 'Morena') {
-                morena++;
+            if(encuesta['deporte'] == 'Futbol') {
+                futbol++;
             }
-            if(encuesta['intencionvoto'] == 'Pri') {
-                pri++;
+            if(encuesta['deporte'] == 'Basquetbol') {
+                basquetbol++;
             }
 
             // Por Colonias
-            if(encuesta['intencionvoto'] == 'Movimiento Ciudadano' && encuesta['colonia'] == 'Centro') {
-                centroMoci++;
+            if(encuesta['deporte'] == 'Beisbol' && encuesta['colonia'] == 'Centro') {
+                centroBeis++;
             }
-            if(encuesta['intencionvoto'] == 'Morena' && encuesta['colonia'] == 'Centro') {
-                centroMorena++;
+            if(encuesta['deporte'] == 'Futbol' && encuesta['colonia'] == 'Centro') {
+                centroFut++;
             }
-            if(encuesta['intencionvoto'] == 'Pri' && encuesta['colonia'] == 'Centro') {
-                centroPri++;
+            if(encuesta['deporte'] == 'Basquetbol' && encuesta['colonia'] == 'Centro') {
+                centroBasquet++;
             }
-            if(encuesta['intencionvoto'] == 'Movimiento Ciudadano' && encuesta['colonia'] == 'Guadalupe') {
-                guadalupeMoci++;
+            if(encuesta['deporte'] == 'Beisbol' && encuesta['colonia'] == 'Guadalupe') {
+                guadalupeBeis++;
             }
-            if(encuesta['intencionvoto'] == 'Morena' && encuesta['colonia'] == 'Guadalupe') {
-                guadalupeMorena++;
+            if(encuesta['deporte'] == 'Futbol' && encuesta['colonia'] == 'Guadalupe') {
+                guadalupeFut++;
             }
-            if(encuesta['intencionvoto'] == 'Pri' && encuesta['colonia'] == 'Guadalupe') {
-                guadalupePri++;
+            if(encuesta['deporte'] == 'Basquetbol' && encuesta['colonia'] == 'Guadalupe') {
+                guadalupeBasquet++;
             }
-            if(encuesta['intencionvoto'] == 'Movimiento Ciudadano' && encuesta['colonia'] == 'Tizimin') {
+            if(encuesta['deporte'] == 'Beisbol' && encuesta['colonia'] == 'Tizimin') {
                 tiziminMoci++;
             }
-            if(encuesta['intencionvoto'] == 'Morena' && encuesta['colonia'] == 'Tizimin') {
-                tiziminMorena++;
+            if(encuesta['deporte'] == 'Futbol' && encuesta['colonia'] == 'Tizimin') {
+                tiziminFut++;
             }
-            if(encuesta['intencionvoto'] == 'Pri' && encuesta['colonia'] == 'Tizimin') {
-                tiziminPri++;
+            if(encuesta['deporte'] == 'Basquetbol' && encuesta['colonia'] == 'Tizimin') {
+                tiziminBasquet++;
             }
-            if(encuesta['intencionvoto'] == 'Movimiento Ciudadano' && encuesta['colonia'] == 'Hornos') {
-                hornosMoci++;
+            if(encuesta['deporte'] == 'Beisbol' && encuesta['colonia'] == 'Hornos') {
+                hornosBeis++;
             }
-            if(encuesta['intencionvoto'] == 'Morena' && encuesta['colonia'] == 'Hornos') {
-                hornosMorena++;
+            if(encuesta['deporte'] == 'Futbol' && encuesta['colonia'] == 'Hornos') {
+                hornosFut++;
             }
-            if(encuesta['intencionvoto'] == 'Pri' && encuesta['colonia'] == 'Hornos') {
-                hornosPri++;
+            if(encuesta['deporte'] == 'Basquetbol' && encuesta['colonia'] == 'Hornos') {
+                hornosBasquet++;
             }
 
             // Por ciudad
@@ -97,31 +97,31 @@ const estadisticas = async (req, res = response) => {
             total++;
         });
 
-        const porcentajeMoci = Math.round((moci * 100) / total);
-        const porcentajeMorena = Math.round((morena * 100) / total);
-        const porcentajePri = Math.round((pri * 100) / total);
+        const porcentajeBeisbol = Math.round((beisbol * 100) / total);
+        const porcentajeFutbol = Math.round((futbol * 100) / total);
+        const porcentajeBasquetbol = Math.round((basquetbol * 100) / total);
         
         res.json({
             ok: true,
             total,
-            moci,
-            porcentajeMoci,
-            morena,
-            porcentajeMorena,
-            pri,
-            porcentajePri,
-            centroMoci,
-            centroMorena,
-            centroPri,
-            guadalupeMoci,
-            guadalupeMorena,
-            guadalupePri,
-            tiziminMoci,
-            tiziminMorena,
-            tiziminPri,
-            hornosMoci,
-            hornosMorena,
-            hornosPri,
+            beisbol,
+            porcentajeBeisbol,
+            futbol,
+            porcentajeFutbol,
+            basquetbol,
+            porcentajeBasquetbol,
+            centroBeis,
+            centroFut,
+            centroBasquet,
+            guadalupeBeis,
+            guadalupeFut,
+            guadalupeBasquet,
+            tiziminBeis,
+            tiziminFut,
+            tiziminBasquet,
+            hornosBeis,
+            hornosFut,
+            hornosBasquet,
             seybaplaya,
             xkeulil,
             villamadero

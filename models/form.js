@@ -14,32 +14,16 @@ const FormularioSchema = Schema({
         type: String,
         required: true,
     },
-    coloniaid: {
-        type: Intl, // cambiamos al id
-        required: true,
-    },
     colonia: {
         type: String, // cambiamos al id
-        required: true,
-    },
-    seccionid: {
-        type: Intl,
         required: true,
     },
     seccion: {
         type: String,
         required: true,
     },
-    ciudadid: {
-        type: Intl,
-        required: true,
-    },
     ciudad: {
         type: String,
-        required: true,
-    },
-    deporteid: {
-        type: Intl, // cambiamos al id
         required: true,
     },
     deporte: {

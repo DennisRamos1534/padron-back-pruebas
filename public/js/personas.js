@@ -14,14 +14,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     const tbody = document.querySelector("#tBody"); // Aqui agregamos los tr que se generan dinamicamente
 
-    const footerMostrar = document.querySelector('.mostrar-footer');
+    // const footerMostrar = document.querySelector('.mostrar-footer');
     const loading = document.querySelector('.contendor-loading');
 
     const nombreAdmin = localStorage.getItem('nombre-admin');
     selectNombreAdmin.innerHTML = nombreAdmin; // Agregamos el nombre del administrador
 
     // TRAEMOS TODAS LAS PESONAS ENCUESTADAS DE LA DB
-    footerMostrar.style.display = 'none';
+    // footerMostrar.style.display = 'none';
     loading.style.display = 'flex';
 
     try {
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const resultadoPersonas = await resp.json();
         if(resultadoPersonas['ok']) {
             loading.style.display = 'none';
-            footerMostrar.style.display = 'block';
+            // footerMostrar.style.display = 'block';
             resultadoPersonas['personas'].forEach(per => {
                 // Creamos la tabla dinamicamente con la BD
                 const trBody = document.createElement('tr');
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 tdBody2.innerHTML = per['edad'];
                 tdBody3.innerHTML = per['ciudad'];
                 tdBody4.innerHTML = per['colonia'];
-                tdBody5.innerHTML = per['intencionvoto'];
+                tdBody5.innerHTML = per['deporte'];
                 tdBody6.innerHTML = per['seccion'];
 
                 trBody.appendChild(tdBody1);

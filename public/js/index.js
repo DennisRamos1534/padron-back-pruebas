@@ -15,34 +15,34 @@ document.addEventListener('DOMContentLoaded', async () => {
     const closeBtn = document.querySelector("#close-btn");
     const themeToggler = document.querySelector(".theme-toggler");
 
-    const moci = document.querySelector('#moci');
-    const morena = document.querySelector('#morena');
-    const pri = document.querySelector('#pri');
+    const beisbol = document.querySelector('#beisbol');
+    const futbol = document.querySelector('#futbol');
+    const basquetbol = document.querySelector('#basquetbol');
 
-    const mocipor = document.querySelector('#mocipor');
-    const morenapor = document.querySelector('#morenapor');
-    const pripor = document.querySelector('#pripor');
+    const beisbolpor = document.querySelector('#beisbolpor');
+    const futbolpor = document.querySelector('#futbolpor');
+    const basquetpor = document.querySelector('#basquetbolpor');
 
-    const barraProgresoMoci = document.querySelector('#barraProgresoMoci');
-    const barraProgresoMorena = document.querySelector('#barraProgresoMorena');
-    const barraProgresoPri = document.querySelector('#barraProgresoPri');
+    const barraProgresoBeisbol = document.querySelector('#barraProgresoBeisbol');
+    const barraProgresoFutbol = document.querySelector('#barraProgresoFutbol');
+    const barraProgresoBasquet = document.querySelector('#barraProgresoBasquetbol');
 
     // TABLA POR COLONIA
-    const centroMoci = document.querySelector('#centro-moci');
-    const centroMorena = document.querySelector('#centro-morena');
-    const centroPri = document.querySelector('#centro-pri');
+    const centroBeis = document.querySelector('#centro-beis');
+    const centroFut = document.querySelector('#centro-fut');
+    const centroBasquet = document.querySelector('#centro-basquet');
     
-    const guadalupeMoci = document.querySelector('#guadalupe-moci');
-    const guadalupeMorena = document.querySelector('#guadalupe-morena');
-    const guadalupePri = document.querySelector('#guadalupe-pri');
+    const guadalupeBeis = document.querySelector('#guadalupe-beis');
+    const guadalupeFut = document.querySelector('#guadalupe-fut');
+    const guadalupeBasquet = document.querySelector('#guadalupe-basquet');
 
-    const tiziminMoci = document.querySelector('#tizimin-moci');
-    const tiziminMorena = document.querySelector('#tizimin-morena');
-    const tiziminPri = document.querySelector('#tizimin-pri');
+    const tiziminBeis = document.querySelector('#tizimin-beis');
+    const tiziminFut = document.querySelector('#tizimin-fut');
+    const tiziminBasquet = document.querySelector('#tizimin-basquet');
 
-    const hornosMoci = document.querySelector('#hornos-moci');
-    const hornosMorena = document.querySelector('#hornos-morena');
-    const hornosPri = document.querySelector('#hornos-pri');
+    const hornosBeis = document.querySelector('#hornos-beis');
+    const hornosFut = document.querySelector('#hornos-fut');
+    const hornosBasquet = document.querySelector('#hornos-basquet');
     
     // estadisticas por ciudad
     const seybaplaya = document.querySelector('#seybaplaya');
@@ -115,46 +115,46 @@ document.addEventListener('DOMContentLoaded', async () => {
             if(resultado['ok']) {
                 loading.style.display = 'none';
                 // footer.style.display = 'block';
-                moci.innerHTML = resultado['moci'];
-                morena.innerHTML = resultado['morena'];
-                pri.innerHTML = resultado['pri'];
+                beisbol.innerHTML = resultado['beisbol'];
+                futbol.innerHTML = resultado['futbol'];
+                basquetbol.innerHTML = resultado['basquetbol'];
                 
-                mocipor.innerHTML = `${resultado['porcentajeMoci']}%`;
-                morenapor.innerHTML = `${resultado['porcentajeMorena']}%`;
-                pripor.innerHTML = `${resultado['porcentajePri']}%`;
+                beisbolpor.innerHTML = `${resultado['porcentajeBeisbol']}%`;
+                futbolpor.innerHTML = `${resultado['porcentajeFutbol']}%`;
+                basquetpor.innerHTML = `${resultado['porcentajeBasquetbol']}%`;
 
                 // Barra de progreso
-                const mociCalc = (68 * Number(resultado['porcentajeMoci'])) / 100;
-                const morenaCalc = (68 * Number(resultado['porcentajeMorena'])) / 100;
-                const priCalc = (68 * Number(resultado['porcentajePri'])) / 100;
+                const beisbolCalc = (68 * Number(resultado['porcentajeBeisbol'])) / 100;
+                const futbolCalc = (68 * Number(resultado['porcentajeFutbol'])) / 100;
+                const basquetCalc = (68 * Number(resultado['porcentajeBasquetbol'])) / 100;
 
                 // PORCENTAJE DE LA DONA
-                barraProgresoMoci.style.strokeDashoffset = `calc(440 - (440 * ${mociCalc})/100)`;
-                barraProgresoMorena.style.strokeDashoffset = `calc(440 - (440 * ${morenaCalc})/100)`;
-                barraProgresoPri.style.strokeDashoffset = `calc(440 - (440 * ${priCalc})/100)`;
+                barraProgresoBeisbol.style.strokeDashoffset = `calc(440 - (440 * ${beisbolCalc})/100)`;
+                barraProgresoFutbol.style.strokeDashoffset = `calc(440 - (440 * ${futbolCalc})/100)`;
+                barraProgresoBasquet.style.strokeDashoffset = `calc(440 - (440 * ${basquetCalc})/100)`;
 
                 // TABLA DE VOTOS POR COLONIA
-                centroMoci.innerHTML = `${resultado['centroMoci']}`;
-                centroMorena.innerHTML = `${resultado['centroMorena']}`;
-                centroPri.innerHTML = `${resultado['centroPri']}`;
+                centroBeis.innerHTML = `${resultado['centroBeis']}`;
+                centroFut.innerHTML = `${resultado['centroFut']}`;
+                centroBasquet.innerHTML = `${resultado['centroBasquet']}`;
 
-                guadalupeMoci.innerHTML = `${resultado['guadalupeMoci']}`;
-                guadalupeMorena.innerHTML = `${resultado['guadalupeMorena']}`;
-                guadalupePri.innerHTML = `${resultado['guadalupePri']}`;
+                guadalupeBeis.innerHTML = `${resultado['guadalupeBeis']}`;
+                guadalupeFut.innerHTML = `${resultado['guadalupeFut']}`;
+                guadalupeBasquet.innerHTML = `${resultado['guadalupeBasquet']}`;
 
-                tiziminMoci.innerHTML = `${resultado['tiziminMoci']}`;
-                tiziminMorena.innerHTML = `${resultado['tiziminMorena']}`;
-                tiziminPri.innerHTML = `${resultado['tiziminPri']}`;
+                tiziminBeis.innerHTML = `${resultado['tiziminBeis']}`;
+                tiziminFut.innerHTML = `${resultado['tiziminFut']}`;
+                tiziminBasquet.innerHTML = `${resultado['tiziminBasquet']}`;
 
-                hornosMoci.innerHTML = `${resultado['hornosMoci']}`;
-                hornosMorena.innerHTML = `${resultado['hornosMorena']}`;
-                hornosPri.innerHTML = `${resultado['hornosPri']}`;
+                hornosBeis.innerHTML = `${resultado['hornosBeis']}`;
+                hornosFut.innerHTML = `${resultado['hornosFut']}`;
+                hornosBasquet.innerHTML = `${resultado['hornosBasquet']}`;
 
                 seybaplaya.innerHTML = `${resultado['seybaplaya']}`;
                 xkeulil.innerHTML = `${resultado['xkeulil']}`;
                 villamadero.innerHTML = `${resultado['villamadero']}`;
 
-                const totalCiudad = 50;
+                const totalCiudad = resultado['total'];
                 const porSeybaplaya = (parseInt(resultado['seybaplaya']) * 100) / totalCiudad;
                 const porXkeulil = (parseInt(resultado['xkeulil']) * 100) / totalCiudad;
                 const porVillamadero = (parseInt(resultado['villamadero']) * 100) / totalCiudad;
